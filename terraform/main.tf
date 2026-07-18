@@ -3,6 +3,14 @@ terraform {
   required_providers {
     aws = { source = "hashicorp/aws", version = "~> 5.0" }
   }
+
+  backend "s3" {
+    bucket         = "starttech-tfstate-onimole7"
+    key            = "starttech-infra/terraform.tfstate"
+    region         = "us-east-1"
+    dynamodb_table = "starttech-tf-lock"
+    encrypt        = true
+  }
 }
 
 provider "aws" {
