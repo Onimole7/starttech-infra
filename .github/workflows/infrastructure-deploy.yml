@@ -15,6 +15,11 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     steps:
       - uses: actions/checkout@v4
+      - name: Debug - check credentials are visible
+        run: |
+          echo "Access key length: ${#AWS_ACCESS_KEY_ID}"
+          echo "Secret key length: ${#AWS_SECRET_ACCESS_KEY}"
+          aws sts get-caller-identity
       - uses: hashicorp/setup-terraform@v3
       - run: terraform init
       - run: terraform fmt -check -recursive
