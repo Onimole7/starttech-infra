@@ -119,18 +119,20 @@ resource "aws_lb" "backend" {
 }
 
 resource "aws_lb_target_group" "backend" {
-  name        = "starttech-tg"
+  name_prefix = "sttg-"
   port        = 30649
   protocol    = "HTTP"
   vpc_id      = var.vpc_id
   target_type = "instance"
-
   health_check {
     path                = "/api/health"
     healthy_threshold   = 2
     unhealthy_threshold = 2
     interval            = 15
     timeout             = 5
+  }
+  lifecycle {
+    create_before_destroy = true
   }
 }
 
