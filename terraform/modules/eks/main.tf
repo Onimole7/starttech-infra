@@ -57,8 +57,8 @@ resource "aws_security_group" "node" {
   vpc_id = var.vpc_id
 
   ingress {
-    from_port   = 8080
-    to_port     = 8080
+    from_port   = 30000
+    to_port     = 32767
     protocol    = "tcp"
     cidr_blocks = [var.vpc_cidr_block]
   }
@@ -120,7 +120,7 @@ resource "aws_lb" "backend" {
 
 resource "aws_lb_target_group" "backend" {
   name        = "starttech-tg"
-  port        = 8080
+  port        = 30649
   protocol    = "HTTP"
   vpc_id      = var.vpc_id
   target_type = "instance"
